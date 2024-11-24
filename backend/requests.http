@@ -1,0 +1,186 @@
+###Register User
+post http://localhost:5300/user-api/register
+Content-Type: application/json
+
+{
+    "username":"admin",
+    "password":"admin",
+    "mobileNo":123456789,
+    "email":"admin@gmail.com"
+}
+
+### Login user
+post http://localhost:5100/user-api/login
+Content-Type: application/json
+
+{
+    "username":"ravi_04",
+    "password":"ravi2004",
+    "mobileNo":126564789
+}
+
+###Add a product to cart
+put http://localhost:5100/user-api/add-to-cart/ravi_04/1716217773/2
+
+### Increase cart item count
+put http://localhost:5100/user-api/increase-cart-count/ravi_04/1716217773
+
+### Decrease cart item count
+put http://localhost:5100/user-api/decrease-cart-count/ravi_04/1716217773
+
+###Add a product to wishlist
+put http://localhost:5100/user-api/add-to-wishlist/ravi_04/1716217773
+
+###Add a product to save for later
+put http://localhost:5100/user-api/add-to-savelater/ravi_04/1716217773
+
+###remove a product from cart
+put http://localhost:5100/user-api/remove-cart/ravi_04/1716217773
+
+###remove a product from wishlist
+put http://localhost:5100/user-api/remove-wishlist/ravi_04/1716217773
+
+###remove from save for later
+put http://localhost:5100/user-api/remove-savelater/ravi_04/1716217773
+
+###Display from cart
+get http://localhost:5100/user-api/display-cart/ravi_04
+
+###Display wishlist
+get http://localhost:5100/user-api/display-wishlist/ravi_04
+
+###Display save for later
+get http://localhost:5100/user-api/display-savelater/ravi_04
+
+###Get display of all the products
+get http://localhost:5100/user-api/products
+
+
+###Add an address
+post http://localhost:5100/user-api/add-address
+Content-Type: application/json
+
+{
+    "addressid":123,
+    "username":"ravi_04",
+    "name":"Shiva",
+    "mobileno":2345678901,
+    "add_1":"Dr no 434 , ramnagar colony",
+    "add_2":"Secunderbad",
+    "city": "Hyderabad",
+    "state": "Telangana",
+    "country": "India",
+    "pincode": 500072
+}
+### Delete an address
+delete http://localhost:5100/user-api/delete-address/ravi_04/456
+
+
+### Display addresses
+get http://localhost:5100/user-api/get-addresses/ravi_04
+
+###display my orders
+get http://localhost:5100/user-api/get-orders/ravi_04
+
+###Place Order
+post http://localhost:5100/user-api/place-order
+Content-Type: application/json 
+
+[
+    {"name":"ravi"},
+    {"name":"shiva"}
+]
+
+### Return product
+put http://localhost:5100/user-api/return-order/67421bd718253c9b0d246a2e
+
+###Wallet balance
+get http://localhost:5100/user-api/wallet/ravi_04
+
+
+//------------------Admin Operations-------------------------
+### Add a prooduct
+post http://localhost:5100/admin-api/add-product
+Content-Type: application/json
+
+{
+    "productid":"{{$timestamp}}",
+    "title":"Watch",
+    "description":"lorem ipsum...",
+    "price":5200,
+    "discountPercentage":5.6,
+    "rating":4.6,
+    "stock":15,
+    "brand":"puma",
+    "category":"fashion",
+    "priceAfterDiscount":2633,
+    "images":[],
+    "display_status":true
+}
+
+###soft delete a product
+put http://localhost:5100/admin-api/disable/1716051612
+
+###enable a product
+put http://localhost:5100/admin-api/enable/1716051612
+
+###Get display of all the products
+get http://localhost:5100/admin-api/products
+
+###Change stock of product
+put http://localhost:5100/admin-api/change-stock/1716051612/25
+
+###Chnage discount price of a product
+put http://localhost:5100/admin-api/change-discount/1716051612/10
+
+
+###Modify a product
+put http://localhost:5100/admin-api/modify-product
+Content-Type: application/json
+
+{
+    "productid":"1716051612",
+    "title":"Watch",
+    "description":"lorem ipsum...",
+    "price":6200,
+    "discountPercentage":5.6,
+    "rating":4.6,
+    "stock":15,
+    "brand":"puma",
+    "category":"fashion",
+    "priceAfterDiscount":2633,
+    "images":[],
+    "display_status":true
+}
+###Get dispatch products
+get http://localhost:5100/admin-api/get-dispatch-products
+
+###Dispatch Product
+put http://localhost:5100/admin-api/dispatch-product
+Content-Type: application/json
+
+{
+    "productid":1716466498806,
+    "username":"ravi_04",
+    "orderid":"ravi_04_1732338157383"
+}
+
+### Display to be delivered products
+get http://localhost:5100/admin-api/delivery-list
+
+###Deliver product
+
+put http://localhost:5100/admin-api/deliver-product/1716467502781/ravi_04_24/ravi_04_1732338157383
+
+### Display return Products
+get http://localhost:5100/admin-api/return-products-list
+
+### retrieve product using barcode
+get http://localhost:5100/admin-api/retrieve-product/34
+
+### Reject product
+put http://localhost:5100/admin-api/reject-product/34/Invalid product
+
+### Accpet return
+
+put http://localhost:5100/admin-api/accept-product/33/ravi_04/5000

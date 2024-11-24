@@ -1,0 +1,71 @@
+/* Background animation */
+.home-container {
+    position: relative;
+    background: linear-gradient(45deg, #ff6f61, #6b9fd3, #f1c40f, #8e44ad);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    padding-bottom: 50px;
+  }
+  
+  @keyframes gradientBG {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  
+  /* Fade-in animation for Carousel */
+  .carousel-inner {
+    opacity: 0;
+    animation: fadeIn 2s ease-out forwards;
+  }
+  
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+    }
+  }
+  
+  /* Product container animation */
+  .product-container {
+    opacity: 0;
+    animation: fadeIn 2s ease-out forwards;
+    margin-top: 20px;
+  }
+  
+  /* Card hover effect */
+  .card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Animation for card title */
+  .card-title {
+    transition: transform 0.3s ease;
+  }
+  
+  .card:hover .card-title {
+    transform: translateY(-10px);
+  }
+  
+  /* Text animation for headings */
+  h5 {
+    opacity: 0;
+    animation: fadeInText 2s ease-out forwards;
+  }
+  
+  @keyframes fadeInText {
+    to {
+      opacity: 1;
+    }
+  }
+  

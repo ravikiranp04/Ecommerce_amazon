@@ -1,0 +1,67 @@
+/* Global Styles */
+.myorders-container {
+  background: linear-gradient(45deg, #f8f9fa, #e9ecef);
+  padding: 20px;
+}
+
+.orders-title {
+  font-family: 'Roboto', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 500;
+  color: #343a40;
+}
+
+.no-orders {
+  font-size: 1.2rem;
+  color: #6c757d;
+}
+
+.card {
+  border: none;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.order-card {
+  background-color: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.order-image {
+  height: 200px;
+  object-fit: cover;
+}
+
+.order-title {
+  font-size: 1.25rem;
+  color: #495057;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.order-btn {
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.order-btn:hover {
+  background-color: #0056b3;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+  border-radius: 5px;
+}

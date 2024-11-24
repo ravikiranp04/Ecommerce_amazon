@@ -1,0 +1,94 @@
+/* Add this to your CSS file (UserProfile.css) */
+
+body {
+    background: linear-gradient(135deg, #ff7e5f, #feb47b); /* Vibrant background */
+    font-family: 'Arial', sans-serif;
+    animation: gradientAnimation 5s ease infinite;
+  }
+  
+  @keyframes gradientAnimation {
+    0% { background: linear-gradient(135deg, #ff7e5f, #feb47b); }
+    50% { background: linear-gradient(135deg, #6a11cb, #2575fc); }
+    100% { background: linear-gradient(135deg, #ff7e5f, #feb47b); }
+  }
+  
+  .carousel-inner {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .product-card {
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .product-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  .card-body {
+    position: relative;
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin: 15px;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .card-body:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  }
+  
+  .card-body img {
+    border-radius: 10px;
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  .card-body img:hover {
+    opacity: 0.9;
+  }
+  
+  button {
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #ff8c00;
+    transform: translateY(-2px);
+  }
+  
+  /* Modal and Popup Styling */
+  .scan-modal {
+    background-color: #fff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    border-radius: 10px;
+    animation: fadeIn 0.5s ease;
+  }
+  
+  @keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  
+  .form-control {
+    border-radius: 25px;
+    border: 2px solid #ff8c00;
+    padding: 10px;
+    transition: border-color 0.3s ease;
+  }
+  
+  .form-control:focus {
+    border-color: #feb47b;
+    box-shadow: 0 0 10px rgba(255, 138, 0, 0.5);
+  }
+  

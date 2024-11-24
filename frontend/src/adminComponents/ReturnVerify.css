@@ -1,0 +1,36 @@
+.return-container {
+    max-width: 600px;
+    margin: auto;
+    padding: 2rem;
+  }
+  
+  .return-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+  }
+  
+  .return-card h3, .return-card h4 {
+    margin-bottom: 1rem;
+  }
+  
+  .form-control {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+  }
+  
+  .btn {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border-radius: 4px;
+  }
+  
+  .image-preview img {
+    max-width: 100%;
+    border-radius: 8px;
+  }
+  
