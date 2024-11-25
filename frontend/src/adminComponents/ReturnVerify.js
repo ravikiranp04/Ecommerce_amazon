@@ -22,8 +22,9 @@ function ReturnVerify() {
   const navigate = useNavigate();
   const [imageFile, setImageFile] = useState(null);
   const myproduct = location.state;
-  const [isAccepted,setisAccepted]=useState(false)
-
+  const [comparisonResult,setComparisonResult]=useState("");
+  const [similarity,setSimilarity]=useState(null);
+  const [loading, setLoading] = useState(false);
   // Fetching products data
   useEffect(() => {
     const fetchAllProducts = async () => {
@@ -100,8 +101,8 @@ function ReturnVerify() {
         setRfidVerified(false);
 
         setProductDetails({
-          ...productDetails,
-          rejectedReason: reason 
+          ...productDetails, // Preserve existing product details
+          rejectedReason: reason // Correct field name: "rejectedReason"
         });
 
         // Use the updated rejection reason for the rejection API call
@@ -126,7 +127,7 @@ function ReturnVerify() {
 
   // Handle image verification
   const handleImageVerify = async () => {
-    if (!imageFile) {
+    /*if (!imageFile) {
       alert("Image not available");
       return;
     }
@@ -135,31 +136,56 @@ function ReturnVerify() {
       return;
     }
     
-   
-    const formData = new FormData();
-    formData.append("file", imageFile);  // imageFile is the image file object from input
-    formData.append("dispatchImages", JSON.stringify(myproduct.dispatchImages)); 
+    const formData = {};
+    formData.file = image
+    formData.dispatchImages=myproduct.dispatchImages;
+    console.log(formData)
     try {
-      const response = await axios.post("http://127.0.0.1:5000/upload", formData, {
+      const response = await axios.post(`http://127.0.0.1:5000/upload`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       console.log(response)
       if (response.data.result === "Genuine Product") {
         alert(`Product Verified: Similarity - ${response.data.similarity}`);
-        setIsRejected(false)
-        setisAccepted(true)
-        
       } else {
         alert(`Product Fraudulent: Similarity - ${response.data.similarity}`);
-        setisAccepted(false)
-        
-        setRejectReason("Product Mismatch")
       }
     } catch (error) {
       console.error("Error uploading image:", error);
       alert("Something went wrong while verifying the product");
-    }
+    }*/
+      const formData = new FormData();
+      formData.append("file", imageFile);
+  
+      setLoading(true);
+      try {
+        const response = await fetch("http://127.0.0.1:5000/upload", {
+          method: "POST",
+          body: formData,
+        });
+        console.log(response)
+        const data = await response.json();
+        setComparisonResult(data.result);  // Set the result (Genuine/Fraudulent)
+        setSimilarity(data.similarity);    // Set the similarity score
+        console.log(data)
+        if(data.result==="Genuine Product"){
+          canAcceptReturn=true;
+          setIsRejected(false)
+
+        }
+        else{
+          canAcceptReturn=false
+          setIsRejected(true)
+        }
+      } catch (error) {
+        console.error("Error during image upload:", error);
+        
+      } finally {
+        setLoading(false);
+      }
+
   };
+
 
   
 
@@ -200,13 +226,21 @@ function ReturnVerify() {
     }
   };
   const handleAcceptReturn=async()=>{
-    const res = await axios.put(`${BASE_URL}/admin-api/accept-product/${myproduct.barcode}/${myproduct.username}/${myproduct.price}`)
-    if(res.data.message==='Return Accepted'){
-      navigate(`/admin-profile/return-products`);
+    const res = await axios.put(`${BASE_URL}/admin-api/accept-product/${myproduct.barcode}/${myproduct.username}/${myproduct.price}`);
+    window.confirm("Confirm to Accept")
+    if(res.data.message==="Return Accepted"){
+      setIsRejected(false)
+      setNotification("Product Accepted and Refund Processed");
+        setTimeout(() => {
+          setNotification('');
+          navigate('/admin-profile/return-products');
+        }, 2000);
+      
     }
     else{
       setErr(res.data.message)
     }
+
   }
 
   return (
@@ -363,6 +397,25 @@ function ReturnVerify() {
                   >
                     Verify Image
                   </button>
+                  
+                  
+                  {loading ? (
+                <p>Processing...</p>
+                ) : (
+                comparisonResult && (
+                    <div className="result mt-3">
+                    <h5>Result:</h5>
+                    <p>{comparisonResult}</p>
+                    {similarity && (
+                        <div>
+                        <h6>Similarity Score:</h6>
+                        <p>{similarity.toFixed(7)}</p> {/* Display similarity with 7 decimal points */}
+                        </div>
+                    )}
+                    </div>
+                )
+                )}
+
                 </div>
               )}
             </div>
@@ -376,7 +429,7 @@ function ReturnVerify() {
           <button
             className="btn btn-success m-2"
             disabled={!canAcceptReturn}
-            onClick={()=>handleAcceptReturn}
+            onClick={handleAcceptReturn}
           >
             Accept Return
           </button>
@@ -398,4 +451,4 @@ function ReturnVerify() {
   );
 }
 
-export default ReturnVerify;
+export default ReturnVerify; 
