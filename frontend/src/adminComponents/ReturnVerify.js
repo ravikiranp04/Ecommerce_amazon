@@ -16,7 +16,7 @@ function ReturnVerify() {
   const [isRejected, setIsRejected] = useState(false);
   const [validRfid, setValidRfid] = useState("");
   const [err, setErr] = useState("");
-  const [rejectReason, setRejectReason] = useState(""); // Rejection reason state
+  const [rejectReason, setRejectReason] = useState(""); 
   const location = useLocation();
   const [notification, setNotification] = useState('');
   const navigate = useNavigate();
@@ -25,7 +25,6 @@ function ReturnVerify() {
   const [comparisonResult,setComparisonResult]=useState("");
   const [similarity,setSimilarity]=useState(null);
   const [loading, setLoading] = useState(false);
-  // Fetching products data
   useEffect(() => {
     const fetchAllProducts = async () => {
       const res = await axios.get(`${BASE_URL}/admin-api/return-products-list`);
@@ -38,7 +37,6 @@ function ReturnVerify() {
     fetchAllProducts();
   }, []);
 
-  // Function to handle API call for rejecting a product
   const rejectProduct = async (bcode, reson) => {
     try {
       console.log(bcode);
@@ -60,7 +58,7 @@ function ReturnVerify() {
     }
   };
 
-  // Handle QR code submission
+  //QR code submission
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -76,16 +74,17 @@ function ReturnVerify() {
       );
       if (confirmReject) {
         const rejectionReason = "Invalid Product...";
+      
         setRejectReason(rejectionReason);
-        rejectProduct(myproduct.barcode, rejectReason); // Call API for invalid product
+        rejectProduct(myproduct.barcode,"Invalid Product..."); 
         setValidRfid("");
-        setProductDetails(null); // Clear product details
+        setProductDetails(null); 
         setIsRejected(true);
       }
     }
   };
 
-  // Handle RFID verification
+  //RFID verification
   const handleRfidCheck = () => {
     if (rfid === validRfid) {
       setRfidVerified(true);
@@ -95,33 +94,33 @@ function ReturnVerify() {
         "RFID not matched. Do you want to reject this product?"
       );
       if (confirmReject) {
-        const reason = "RFID Tag Mismatch"; // Set the rejection reason here
-        setRejectReason(reason); // Update state with the rejection reason
+        const reason = "RFID Tag Mismatch"; 
+        setRejectReason(reason); 
 
         setRfidVerified(false);
 
         setProductDetails({
-          ...productDetails, // Preserve existing product details
-          rejectedReason: reason // Correct field name: "rejectedReason"
+          ...productDetails, 
+          rejectedReason: reason 
         });
 
-        // Use the updated rejection reason for the rejection API call
+        
         rejectProduct(myproduct.barcode, reason);
-        setIsRejected(true); // Mark product as rejected
+        setIsRejected(true); 
       } else {
-        setRfidVerified(false); // Keep RFID verification as false if user does not reject
+        setRfidVerified(false); 
       }
     }
   };
 
-  // Handle image upload
+  //image upload
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      // Convert the image file to a URL
+      
       const imageUrl = URL.createObjectURL(file);
-      setImage(imageUrl); // Set image URL for preview
-      setImageFile(file); // Store the image file for submission
+      setImage(imageUrl); 
+      setImageFile(file); 
     }
   };
 
@@ -156,7 +155,7 @@ function ReturnVerify() {
     }*/
       const formData = new FormData();
       formData.append("file", imageFile);
-  
+      formData.append("dispatchImages",myproduct.dispatchImages)
       setLoading(true);
       try {
         const response = await fetch("http://127.0.0.1:5000/upload", {
@@ -165,8 +164,9 @@ function ReturnVerify() {
         });
         console.log(response)
         const data = await response.json();
-        setComparisonResult(data.result);  // Set the result (Genuine/Fraudulent)
-        setSimilarity(data.similarity);    // Set the similarity score
+        setComparisonResult(data.result);  
+        setSimilarity(data.similarity);
+          
         console.log(data)
         if(data.result==="Genuine Product"){
           canAcceptReturn=true;
@@ -174,9 +174,11 @@ function ReturnVerify() {
 
         }
         else{
+          setRejectReason("Product mismatch")
           canAcceptReturn=false
           setIsRejected(true)
         }
+        navigate('/admin-profile/return-products')
       } catch (error) {
         console.error("Error during image upload:", error);
         
@@ -189,7 +191,7 @@ function ReturnVerify() {
 
   
 
-  // Confirmation for "Seal is broken"
+  //  "Seal is broken"
   useEffect(() => {
     if (selectedOption === "Seal is broken") {
       const confirmReject = window.confirm(
@@ -199,27 +201,24 @@ function ReturnVerify() {
         const reason = "Tamper Seal Broken";
         setRejectReason(reason);
         setProductDetails({
-          ...productDetails, // Preserve existing details
-          rejectedReason: "Tamper Seal Broken" // Add rejection reason to details
+          ...productDetails, 
+          rejectedReason: "Tamper Seal Broken" 
         });
         rejectProduct(myproduct.barcode, reason);
         setIsRejected(true);
       } else {
-        setSelectedOption(""); // Reset the option if not rejecting
+        setSelectedOption(""); 
       }
     }
   }, [selectedOption]);
 
-  // Determine if all conditions for accepting the return are met
   const canAcceptReturn =
     rfidVerified &&
     (selectedOption === "Seal is unbroken" ||
       selectedOption === "Non-sealed object") &&
     image;
 
-  // Handle Reject button click
   const handleReject = () => {
-    // Make the API call to reject the product
     if (productDetails) {
       rejectProduct(myproduct.barcode, rejectReason);
       setIsRejected(true);

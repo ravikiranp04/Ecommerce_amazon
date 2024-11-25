@@ -7,7 +7,7 @@ import { admin_uname } from '../port';
 import { NavLink } from 'react-router-dom';
 
 function Login() {
-  const { register, handleSubmit, formState: { errors }, reset } = useForm(); // Added reset to clear form after submission
+  const { register, handleSubmit, formState: { errors }, reset } = useForm(); 
   const dispatch = useDispatch();
   const { currentuser, errorMessage, loginStatus } = useSelector(state => state.userLogin);
   const navigate = useNavigate();

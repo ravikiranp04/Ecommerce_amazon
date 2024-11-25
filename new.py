@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from flask_cors import CORS  # Import CORS
+from flask_cors import CORS  
 import os
 import torch
 from sklearn.metrics.pairwise import cosine_similarity
@@ -7,10 +7,10 @@ from torchvision import models, transforms
 from PIL import Image
 from torchvision.models import ResNet50_Weights
 
-app = Flask(__name__)  # Corrected here
+app = Flask(__name__)  
 
-# Enable CORS for all routes from localhost:3000
-CORS(app, origins=["http://localhost:5100"])  # Add this line
+
+CORS(app, origins=["http://localhost:5100"]) 
 
 UPLOAD_FOLDER = "uploads"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
@@ -28,7 +28,7 @@ def process_image(image_path):
 
 def load_model():
     model = models.resnet50(weights=ResNet50_Weights.IMAGENET1K_V1)
-    model.eval()  # Set to evaluation mode
+    model.eval()  
     return model
 
 def extract_features(image_path, model):
@@ -49,7 +49,7 @@ def compare_images(original_image_paths, return_image_path):
             best_similarity = similarity
             best_result = "Genuine Product" if similarity > 0.8 else "Fraudulent Product"
     
-    # Convert similarity to float to avoid serialization issues
+    
     return best_result, float(best_similarity)
 
 @app.route("/upload", methods=["POST"])
@@ -59,18 +59,18 @@ def upload_image():
     if "file" not in request.files:
         return jsonify({"error": "No file provided"}), 400
     file = request.files["file"]
+    dispatch_images = request.files.getlist("dispatchImages")
+    original_image_paths = dispatch_images
     print(file)
     if file:
         file_path = os.path.join(UPLOAD_FOLDER, file.filename)
         file.save(file_path)
-        original_image_paths = ["f1.jpg", "f2.jpg", "f3.jpg", "f4.jpg","f5.jpg"]
         result, similarity = compare_images(original_image_paths, file_path)
         os.remove(file_path)
         
-        # Return result and similarity as a JSON response
         return jsonify({"result": result, "similarity": similarity})
     
     return jsonify({"error": "Failed to upload file"}), 500
 
-if __name__ == "__main__":  # Corrected here
+if __name__ == "__main__":  
     app.run(debug=True)

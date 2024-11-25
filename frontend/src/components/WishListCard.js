@@ -48,7 +48,7 @@ export default function WishListCard({ products, onItemRemove }) {
       const res = await axiosWithToken.put(`${BASE_URL}/user-api/remove-wishlist/${currentuser.username}/${product.productid}`);
       console.log(res);
       if (res.data.message === 'product removed from wishList') {
-        onItemRemove(); // Call the callback function to update the wishlist
+        onItemRemove(); 
       } else {
         console.log(res.data.message);
       }

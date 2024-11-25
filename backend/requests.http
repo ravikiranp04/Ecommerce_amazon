@@ -169,7 +169,6 @@ Content-Type: application/json
 get http://localhost:5100/admin-api/delivery-list
 
 ###Deliver product
-
 put http://localhost:5100/admin-api/deliver-product/1716467502781/ravi_04_24/ravi_04_1732338157383
 
 ### Display return Products

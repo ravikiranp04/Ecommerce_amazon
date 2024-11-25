@@ -6,7 +6,7 @@ function OfflineCart() {
       <div className="text-center">
         <h1>Please Login</h1>
         <p>You need to login to access</p>
-        {/* You can add additional content or styling here */}
+        
       </div>
     </div>
   );

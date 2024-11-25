@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import axios from 'axios'; // Importing axios for making HTTP requests
+import axios from 'axios'; 
 import { useSelector, useDispatch } from "react-redux";
-import { resetState } from "../Redux/slices/userLoginSLice"; // Assuming resetState is a Redux action to reset the state
+import { resetState } from "../Redux/slices/userLoginSLice"; 
 import { useNavigate } from "react-router-dom";
-import { FaWallet } from 'react-icons/fa'; // Font Awesome Wallet Icon
+import { FaWallet } from 'react-icons/fa'; 
 import { BASE_URL } from "../port";
 
 export default function Navigation() {
@@ -12,19 +12,19 @@ export default function Navigation() {
   const { currentuser, loginStatus } = useSelector((state) => state.userLogin);
   const navigate = useNavigate();
   
-  // State to store wallet balance
+  
   const [walletBalance, setWalletBalance] = useState(0);
 
   useEffect(() => {
-    // Fetch wallet balance whenever the currentuser changes
+  
     const fetchWalletBalance = async () => {
       if (currentuser?.username) {
         try {
-          // API call to get the wallet balance
+          
           const response = await axios.get(`${BASE_URL}/user-api/wallet/${currentuser.username}`);
-          // Assuming the API response structure: { message: "Wallet balance is", payload: 5000 }
+          
           if (response.data?.message === "Wallet balance is" && response.data?.payload !== undefined) {
-            setWalletBalance(response.data.payload); // Set wallet balance in state
+            setWalletBalance(response.data.payload);
           }
         } catch (error) {
           console.error("Error fetching wallet balance:", error);
@@ -32,8 +32,8 @@ export default function Navigation() {
       }
     };
 
-    fetchWalletBalance();  // Trigger the fetch on component mount and when currentuser changes
-  }, [currentuser]);  // Dependency array to re-run the effect if currentuser changes
+    fetchWalletBalance();  
+  }, [currentuser]);  
 
   function logout() {
     sessionStorage.removeItem("token");

@@ -38,7 +38,7 @@ function ModifyProduct() {
     const finalData = {
       ...data,
       priceAfterDiscount: calculateDiscountedPrice(data.price, data.discountPercentage),
-      images: imageUrls.split('\n').filter(url => url.trim() !== '') // Splitting the textarea content by newline
+      images: imageUrls.split('\n').filter(url => url.trim() !== '') 
     };
     finalData.display_status=product.display_status
     console.log(finalData);

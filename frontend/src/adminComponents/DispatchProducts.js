@@ -9,14 +9,13 @@ function DispatchProducts() {
   const [products, setProducts] = useState([]);
   const [err, setErr] = useState("");
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [images, setImages] = useState([]); // Store selected images URLs
+  const [images, setImages] = useState([]); 
   const [notification, setNotification] = useState('');
-  const [imageURL, setImageURL] = useState(""); // Manually added image URL
+  const [imageURL, setImageURL] = useState(""); 
   const { register, handleSubmit, setValue, formState: { errors } } = useForm();
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch dispatch products on mount
     const fetchDispatchProducts = async () => {
       try {
         const res = await axios.get(`${BASE_URL}/admin-api/get-dispatch-products`);
@@ -34,22 +33,22 @@ function DispatchProducts() {
 
   const handleCardClick = (product) => {
     setSelectedProduct(product);
-    setImages([]); // Reset images
-    setImageURL(""); // Reset image URL input
-    setValue("barcode", ""); // Reset barcode input
-    setValue("rfid", ""); // Reset RFID input
+    setImages([]); 
+    setImageURL(""); 
+    setValue("barcode", ""); 
+    setValue("rfid", ""); 
   };
 
   const handleBarcodeChange = (event) => {
     const barcodeValue = event.target.value;
-    setValue("barcode", barcodeValue); // Update barcode value
-    setValue("rfid", `${selectedProduct.username}_${barcodeValue}`); // Generate RFID
+    setValue("barcode", barcodeValue); 
+    setValue("rfid", `${selectedProduct.username}_${barcodeValue}`); 
   };
 
   const handleScanSubmit = async (data) => {
     selectedProduct.barcode = data.barcode;
     selectedProduct.rfidTag = data.rfid;
-    selectedProduct.dispatchImages = images; // Store image URLs
+    selectedProduct.dispatchImages = images; 
     selectedProduct.deliveryStatus = 'dispatched';
     delete selectedProduct._id;
     
@@ -69,14 +68,14 @@ function DispatchProducts() {
 
   const handleImageUpload = (event) => {
     const files = Array.from(event.target.files);
-    const newImages = files.map((file) => URL.createObjectURL(file)); // Convert files to URLs
+    const newImages = files.map((file) => URL.createObjectURL(file)); 
     setImages((prevImages) => [...prevImages, ...newImages]);
   };
 
   const handleCameraCapture = (event) => {
     const file = event.target.files[0];
     if (file) {
-      const imageUrl = URL.createObjectURL(file); // Convert captured file to URL
+      const imageUrl = URL.createObjectURL(file); 
       setImages((prevImages) => [...prevImages, imageUrl]);
     }
   };
@@ -84,20 +83,19 @@ function DispatchProducts() {
   const handleAddImageURL = () => {
     if (imageURL.trim() !== "") {
       setImages((prevImages) => [...prevImages, imageURL.trim()]);
-      setImageURL(""); // Clear input
+      setImageURL(""); 
     }
   };
 
   const handleDeleteImage = (index) => {
-    setImages(images.filter((_, i) => i !== index)); // Remove by index
+    setImages(images.filter((_, i) => i !== index)); 
   };
 
-  // Clean up object URLs when component unmounts or state changes
   useEffect(() => {
     return () => {
       images.forEach((image) => {
         if (image instanceof Object && image.preview) {
-          URL.revokeObjectURL(image.preview); // Cleanup object URLs
+          URL.revokeObjectURL(image.preview); 
         }
       });
     };
@@ -136,7 +134,7 @@ function DispatchProducts() {
               >
                 <div className="product-image">
                   <img
-                    src={product.images[0]} // Assuming the product has images
+                    src={product.images[0]} 
                     alt={product.title}
                     className="card-img"
                   />
@@ -165,7 +163,7 @@ function DispatchProducts() {
                 id="barcode"
                 placeholder="Enter barcode"
                 {...register("barcode", { required: "Barcode is required" })}
-                onChange={handleBarcodeChange} // Update RFID when barcode changes
+                onChange={handleBarcodeChange} 
               />
               {errors.barcode && <p className="error">{errors.barcode.message}</p>}
             </div>

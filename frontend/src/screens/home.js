@@ -4,7 +4,7 @@ import Carousel1 from "../components/carousel1";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { BASE_URL } from "../port";
-import './Home.css';  // Import custom CSS for animations
+import './Home.css';  
 
 export default function Home() {
   const location = useLocation();

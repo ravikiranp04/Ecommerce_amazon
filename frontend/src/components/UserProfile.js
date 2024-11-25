@@ -62,14 +62,12 @@ export default function UserProfile() {
   }, [location,err]);
 
   const handleChange = (value) => {
-    // Check if the item is already checked
+    
     const isChecked = checkedItems.includes(value);
 
-    // If checked, remove it from the checkedItems array
     if (isChecked) {
       setCheckedItems(checkedItems.filter(item => item !== value));
     } else {
-      // If not checked, add it to the checkedItems array
       setCheckedItems([...checkedItems, value]);
     }
   };

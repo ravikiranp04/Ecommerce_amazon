@@ -16,11 +16,11 @@ function Myorders() {
   const [notification, setNotification] = useState("");
   const [err, setErr] = useState("");
   const [myorders, setMyorders] = useState([]);
-  const [selectedOrder, setSelectedOrder] = useState(null); // For storing selected order for viewing details
-  const [showModal, setShowModal] = useState(false); // Modal visibility for viewing details
-  const [returnReason, setReturnReason] = useState(""); // To store the user's return reason
-  const [showReturnModal, setShowReturnModal] = useState(false); // Modal visibility for return reason
-  const [selectedReturnOrder, setSelectedReturnOrder] = useState(null); // Store order for return
+  const [selectedOrder, setSelectedOrder] = useState(null); 
+  const [showModal, setShowModal] = useState(false); 
+  const [returnReason, setReturnReason] = useState(""); 
+  const [showReturnModal, setShowReturnModal] = useState(false); 
+  const [selectedReturnOrder, setSelectedReturnOrder] = useState(null); 
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -97,8 +97,8 @@ function Myorders() {
         setErr(res.data.message);
       }
 
-      setShowReturnModal(false); // Close the modal
-      setReturnReason(""); // Clear the return reason
+      setShowReturnModal(false); 
+      setReturnReason(""); 
     } catch (error) {
       console.error("Error placing return request:", error);
     }

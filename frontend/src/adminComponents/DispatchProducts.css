@@ -100,7 +100,6 @@
     background-color: #0056b3;
   }
   
-  /* Add styles for the image preview and image size */
   .image-preview {
     display: flex;
     flex-wrap: wrap;
@@ -112,9 +111,9 @@
   }
   
   .image-preview-item img {
-    width: 80px; /* Smaller width */
-    height: 80px; /* Maintain aspect ratio */
-    object-fit: cover; /* Ensure image doesn't get distorted */
+    width: 80px; 
+    height: 80px; 
+    object-fit: cover; 
     border-radius: 5px;
   }
   
