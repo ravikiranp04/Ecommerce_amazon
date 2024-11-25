@@ -1,12 +1,12 @@
 
 Project Setup Instructions
-
+---
  Prerequisites
 1. Node.js: Ensure you have Node.js installed. Recommended version: `16.x` or above.
 2. MongoDB: Install and run MongoDB on your local machine or use a cloud MongoDB service (e.g., MongoDB Atlas).
 
 
-
+---
  Step 1: Backend Configuration
 1. Navigate to the backend folder.
 2. Create a .env file with the following content:
@@ -19,7 +19,7 @@ Project Setup Instructions
    -> Replace <Your_MongoDb_Url> with your MongoDB connection string.
 
 
-
+---
 Step 2: Frontend Configuration
 1. Open the file-> frontend/src/port.js.
 2. Modify the following content:
@@ -29,7 +29,7 @@ Step 2: Frontend Configuration
   
    -> Replace <YOUR_PORT_NUMBER> with the port number defined in the backend `.env` file.
 
-
+----
  Step 3: Database Setup
 1. Create a new database in MongoDB with the following details:
    - Database Name: ecommerce
@@ -53,7 +53,7 @@ Step 2: Frontend Configuration
    
 3. Start the server:
   
-   npm start
+   node --watch server.js
   
 
  Frontend
@@ -66,7 +66,7 @@ Step 2: Frontend Configuration
    npm run build
   
 
-
+---
 
  Note:
 -> Ensure that MongoDB is running and accessible.
